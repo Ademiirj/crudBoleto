@@ -12,31 +12,39 @@ public class Consulta {
         String nome;
         System.out.print("Nome da pessoa à pesquisar: ");
         nome = leia.next().toUpperCase();
+        boolean resPesquisa = false;
         
         for(posicao = 0; posicao < pessoas.size(); posicao++){
             if (pessoas.get(posicao).getNome().equals(nome)) {
+            
+            imprimeConsulta(pessoas,posicao);
+            resPesquisa = true;
             break;
-            }else{
-                posicao = -1;
+            }
+            if (resPesquisa == false){
+                System.out.println("Nenhum médico cadastrado dessa especialidade");
             }
         }
         
-        imprimeConsulta(pessoas,posicao);
     }
     public void consultaPorId (List<? extends Pessoa> pessoas){
         int id;
         System.out.print("Nome do aluno à pesquisar: ");
         id = leia.nextInt();
         
+        boolean resPesquisa = false;
         for(posicao = 0; posicao < pessoas.size(); posicao++){
             if (pessoas.get(posicao).getId() == id) {
-                break;
-                }else{
-                posicao = -1;
+            
+            imprimeConsulta(pessoas,posicao);
+            resPesquisa = true;
+            break;
             }
-        }
+            if (resPesquisa == false){
+                System.out.println("Nenhum médico cadastrado dessa especialidade");
+            }
     
-        imprimeConsulta(pessoas,posicao);
+    }
     }
     
     public void consultaPorPosicao (List<? extends Pessoa> pessoas){
@@ -54,21 +62,22 @@ public class Consulta {
     
     public void consultaPorCrm (List<Medico> medicos){
         String crm;
-
         System.out.print("CRM do medico à pesquisar: ");
         crm = leia.next();
         
 //        String get = "getCrm()";
-        
+        boolean resPesquisa = false;
         for(posicao = 0; posicao < medicos.size(); posicao++){
             if (medicos.get(posicao).getCrm().equals(crm)) {
+            
+            imprimeConsulta(medicos,posicao);
+            resPesquisa = true;
             break;
-            }else{
-                posicao = -1;
+            }
+            if (resPesquisa == false){
+                System.out.println("Nenhum médico cadastrado dessa especialidade");
             }
         }
-        
-        imprimeConsulta(medicos,posicao);
     }
     public void consultaPorEspecialidade (List<Medico> medicos){
         Medico medico = new Medico();

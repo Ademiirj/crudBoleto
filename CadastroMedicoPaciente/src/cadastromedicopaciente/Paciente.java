@@ -3,6 +3,10 @@ package cadastromedicopaciente;
 public class Paciente extends Pessoa{
     String cpf, celular;
     
+    public Paciente(){
+        
+    }
+    
     @Override
     public void entrada() {
        super.entrada();

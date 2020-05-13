@@ -4,7 +4,6 @@ public class Endereco implements InterfaceCadastro{
 
     private String logradouro,numero,complemento,bairro,cidade, estado;
     private int cep;
-
     public Endereco(){
     }
     
@@ -32,25 +31,25 @@ public class Endereco implements InterfaceCadastro{
     @Override
     public void entrada(){
 
-        System.out.println("Rua: ");
+        System.out.print("Rua: ");
         setLogradouro( leia.next() );
 
-        System.out.println("Numero da casa: ");
+        System.out.print("Numero da casa: ");
         setNumero( leia.next() );
 
-        System.out.println("(opcional) Complemento: ");
+        System.out.print("(opcional) Complemento: ");
         setComplemento( leia.next() );
 
-        System.out.println("Bairro: ");
+        System.out.print("Bairro: ");
         setBairro( leia.next() );
 
-        System.out.println("Cidade: ");
+        System.out.print("Cidade: ");
         setCidade( leia.next() );
 
-        System.out.println("Estado: ");
+        System.out.print("Estado: ");
         setEstado( leia.next() );
 
-        System.out.println("CEP: ");
+        System.out.print("CEP: ");
         setCep( leia.nextInt() );
     }
 

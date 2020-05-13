@@ -2,6 +2,9 @@ package cadastromedicopaciente;
 
 public class Medico extends Pessoa{
     String crm, especialidade,escolhida;
+    
+    public Medico (){
+    }
 
     public String getCrm() {
         return crm;
