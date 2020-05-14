@@ -1,5 +1,6 @@
 package cadastromedicopaciente;
 
+import static cadastromedicopaciente.InterfaceCadastro.leia;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,14 +8,18 @@ import java.util.Scanner;
 public class Menu {
     public Menu(){
         Menu();
+//        Especialidade especialidade = new Especialidade();
+//        listaEspecialidade.add(especialidade);
     }
     int opcMenu;
     int opcSub;
     int opcSub2;
+    
     Scanner leia = new Scanner(System.in);
     
     List<Paciente> listaPacientes = new ArrayList<>();
     List<Medico> listaMedicos = new ArrayList<>();
+    List<Especialidade> listaEspecialidade = new ArrayList<>();
     
     public void Menu() {
         do{
@@ -56,7 +61,8 @@ public class Menu {
                 switch (menuGeral()){
                     case 1://Escolheu Adicionar Medico
                         Medico medico = new Medico();
-                        medico.entrada();
+                        Especialidade escolhida = escolheEspecialidade(listaEspecialidade);
+                        medico.entrada(escolhida);
                         listaMedicos.add(medico);
                         break;
                     case 2: //Escolheu buscar um medico
@@ -75,7 +81,7 @@ public class Menu {
                                 fazer.consultaPorCrm(listaMedicos);
                                 break;
                             case 5:
-                                fazer.consultaPorEspecialidade(listaMedicos);
+                                fazer.consultaPorEspecialidade(listaMedicos, listaEspecialidade);
                                 break;
                         }
                 }break;
@@ -112,6 +118,27 @@ public class Menu {
         
         opcSub = leia.nextInt();
         return opcSub;
+    }
+    
+    public Especialidade escolheEspecialidade(List<Especialidade> especialidades){
+        Especialidade especialidade = new Especialidade();
+        
+        especialidade.imprimeLista(especialidades);
+        System.out.println((especialidades.size()+1)+" - Para adicionar uma nova especialidade");
+        int opc = leia.nextInt();
+        
+            
+            if(opc == (especialidades.size()+1)){
+               especialidade.entrada();
+               listaEspecialidade.add(especialidade);
+            }
+        for(int posicao = 0; posicao < especialidades.size(); posicao++){
+            if (especialidades.get(posicao).getId() == opc) {
+            return especialidades.get(posicao);
+            }
+        }
+        
+        return especialidades.get(0);
     }
     
     
