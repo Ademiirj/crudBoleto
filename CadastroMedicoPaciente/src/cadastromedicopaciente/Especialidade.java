@@ -9,6 +9,10 @@ public class Especialidade{
     
     public Especialidade(){
     }
+    public Especialidade(int id, String descricao){
+        setId(id);
+        setDescricao(descricao);
+    }
 
     public int getId() {
         return id;
@@ -30,7 +34,7 @@ public class Especialidade{
         System.out.print("Id da Especialidade: ");
         setId(leia.nextInt());
         System.out.print("Descricação da Especialidade: ");
-        setDescricao(leia.next());
+        setDescricao(leia.next().toLowerCase());
     }
     
     public String imprimir() {

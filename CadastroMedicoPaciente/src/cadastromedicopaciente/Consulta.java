@@ -35,6 +35,7 @@ public class Consulta {
         id = leia.nextInt();
 
         boolean resPesquisa = false;
+        
         for (posicao = 0; posicao < pessoas.size(); posicao++) {
             if (pessoas.get(posicao).getId() == id) {
 
@@ -52,7 +53,7 @@ public class Consulta {
         int posicaoArray;
         System.out.print("Numero da posicao à pesquisar: ");
         posicaoArray = leia.nextInt();
-
+        
         try {
             pessoas.indexOf(posicaoArray);
             imprimeConsulta(pessoas, posicaoArray);
@@ -65,7 +66,6 @@ public class Consulta {
         String crm;
         System.out.print("CRM do medico à pesquisar: ");
         crm = leia.next();
-
 //        String get = "getCrm()";
         boolean resPesquisa = false;
         for (posicao = 0; posicao < medicos.size(); posicao++) {
@@ -82,8 +82,7 @@ public class Consulta {
     }
 
     public void consultaPorEspecialidade(List<Medico> medicos, List<Especialidade> especialidades) {
-        Medico medico = new Medico();
-        Especialidade escolhida = new Especialidade();
+        Especialidade escolhida;
         boolean resPesquisa = false;
 
         escolhida = escolheEspecialidade(especialidades);
@@ -99,28 +98,7 @@ public class Consulta {
             System.out.println("Nenhum médico cadastrado dessa especialidade");
         }
     }
-
-    public void imprimeConsulta(List<? extends Pessoa> pessoas, int posicao) {
-        if (posicao == -1) {
-            System.out.println("\n=========================================================\n");
-            System.out.println("Sua busca não retornou nenhum resultado");
-            System.out.println("\n=========================================================\n");
-        } else {
-            System.out.println("\n=========================================================\n");
-            System.out.println("\033[34m Pesquisa realizada com sucesso \033[m");
-            System.out.println("Nome: " + pessoas.get(posicao).getNome());
-            System.out.println("Id: " + pessoas.get(posicao).getId());
-            System.out.println("Posição na lista: " + posicao);
-            
-            if (pessoas.get(posicao) instanceof cadastromedicopaciente.Medico) {
-                Medico medico = (Medico) pessoas.get(posicao);
-                System.out.println("Crm: " + medico.getCrm());
-                System.out.println("Especialidade: " + medico.getEspecialidade().getDescricao());
-            }
-            System.out.println("\n=========================================================\n");
-        }
-    }
-
+    
     public Especialidade escolheEspecialidade(List<Especialidade> especialidades) {
         Especialidade especialidade = new Especialidade();
 
@@ -135,4 +113,27 @@ public class Consulta {
 
         return especialidades.get(0);
     }
+    
+    public void imprimeConsulta(List<? extends Pessoa> pessoas, int posicao) {
+        if (posicao == -1) {
+            System.out.println("\n=========================================================\n");
+            System.out.println("Sua busca não retornou nenhum resultado");
+            System.out.println("\n=========================================================\n");
+        } else {
+            System.out.println("\n=========================================================\n");
+            System.out.println("\033[34m Pesquisa realizada com sucesso \033[m");
+            System.out.println("Posição na lista: " + posicao);
+            pessoas.get(posicao).imprimir();
+            //Verificando se a lista passada por parametro é de Medico ou Paciente
+            if (pessoas.get(posicao) instanceof cadastromedicopaciente.Medico) {
+                Medico medico = (Medico) pessoas.get(posicao);
+                medico.imprimir();
+            }else if (pessoas.get(posicao) instanceof cadastromedicopaciente.Paciente){
+                Paciente paciente = (Paciente) pessoas.get(posicao);
+                paciente.imprimir();
+            }
+            System.out.println("\n=========================================================\n");
+        }
+    }
 }
+

@@ -31,4 +31,9 @@ public class Pessoa implements InterfaceCadastro{
 
     public void setNome(String nome){ this.nome = nome;}
     public String getNome(){ return nome;}
+    
+    public Endereco getEndereco(){
+        return endereco;
+    }
+    
 }

@@ -55,12 +55,8 @@ public class Endereco implements InterfaceCadastro{
 
     @Override
     public void imprimir() {
-        System.out.println("Rua: " + getLogradouro());
-        System.out.println("Numero: " + getNumero());
-        System.out.println("Complemento: " + getComplemento());
-        System.out.println("Bairro: " + getBairro());
-        System.out.println("Cidade: " + getCidade());
-        System.out.println("Estado: " + getEstado());
+        System.out.println("Rua: " + getLogradouro()+"nº " + getNumero()+"Complemento: " + getComplemento());
+        System.out.println("Bairro: " + getBairro()+"Cidade: " + getCidade()+"Estado: " + getEstado());
         System.out.println("CEP: " + getCep());
     }
 }
