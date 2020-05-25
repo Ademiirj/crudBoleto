@@ -6,6 +6,13 @@ public class Cedente implements InterfaceBoleto{
     int id;
     String agencia,nome, codigo;
 
+    public Cedente() {
+    }
+
+    public Cedente(String nome) {
+        setNome(nome);
+    }
+    
     public int getId() {
         return id;
     }
@@ -27,7 +34,7 @@ public class Cedente implements InterfaceBoleto{
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = nome.toUpperCase();
     }
 
     public String getCodigo() {

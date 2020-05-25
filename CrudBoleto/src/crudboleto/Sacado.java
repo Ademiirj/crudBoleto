@@ -10,6 +10,9 @@ public class Sacado implements InterfaceBoleto{
     public Sacado() {
         endereco = new Endereco();
     }
+    public Sacado(String nome) {
+        setNome(nome);
+    }
 
     public int getId() {
         return id;
@@ -24,7 +27,7 @@ public class Sacado implements InterfaceBoleto{
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = nome.toUpperCase();
     }
 
     @Override

@@ -3,13 +3,16 @@ package crudboleto.utilitarios;
 import crudboleto.Banco;
 import crudboleto.Boleto;
 import crudboleto.Moeda;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public class Exclui {
+public class Exclusao {
     Scanner leia = new Scanner(System.in);
     
-    public void exclusaoPorNumero_documento(List<Boleto> boletos){
+    public void porNumero_documento(List<Boleto> boletos){
         String opcao;
         boolean resPesquisa = false;
         
@@ -26,8 +29,28 @@ public class Exclui {
         }
         testaNenhumResultado(resPesquisa);
     }
+    public void porVencimento(List<Boleto> boletos){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String opcao;
+        boolean resPesquisa = false;
+        
+        
+        System.out.print("Digite a data do vencimento no padrao dd/MM/yyyy:");
+        opcao = leia.next();
+        LocalDate DataBoletoParaAchar  = LocalDate.parse(opcao,formatter);
+        
+        
+        for (int posicao = 0; posicao < boletos.size(); posicao++) {
+            if (boletos.get(posicao).getVencimento().equals(DataBoletoParaAchar)) {
+                resPesquisa = realizarExclusao(boletos, posicao);
+                break;
+            }
+            DataBoletoParaAchar.plusDays(1);
+        }
+        testaNenhumResultado(resPesquisa);
+    }
     
-    public void exclusaoPorSacado(List<Boleto> boletos){
+    public void porSacado(List<Boleto> boletos){
         String opcao;
         boolean resPesquisa = false;
         
@@ -44,7 +67,7 @@ public class Exclui {
         testaNenhumResultado(resPesquisa);
     }
     
-    public void exclusaoPorValorTotal(List<Boleto> boletos){
+    public void porValorTotal(List<Boleto> boletos){
         int opcao;
         boolean resPesquisa = false;
         
@@ -61,7 +84,7 @@ public class Exclui {
         testaNenhumResultado(resPesquisa);
     }
 
-    public void exclusaoPorValorCobrado(List<Boleto> boletos){
+    public void porValorCobrado(List<Boleto> boletos){
         int opcao;
         boolean resPesquisa = false;
         
@@ -77,7 +100,7 @@ public class Exclui {
         }
         testaNenhumResultado(resPesquisa);
     }
-
+    
     private void testaNenhumResultado(boolean resPesquisa) {
         if (resPesquisa == false) {
             System.out.println("\n=================================================\n");

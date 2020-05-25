@@ -6,6 +6,13 @@ public class Moeda implements InterfaceBoleto{
     int id;
     String nome,cifra;
 
+    public Moeda(int id, String nome, String cifra) {
+        this.id = id;
+        this.nome = nome;
+        this.cifra = cifra;
+    }
+    public Moeda() {
+    }
     public int getId() {
         return id;
     }

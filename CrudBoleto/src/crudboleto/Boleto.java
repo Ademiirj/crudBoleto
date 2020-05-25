@@ -1,24 +1,61 @@
 package crudboleto;
 
 import crudboleto.utilitarios.InterfaceBoleto;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+/*System.out.print("Banco: " + getBanco());
+        System.out.print("Data: " + getData_documento());
+        System.out.print("Numero do boleto: " + getNum_boleto());
+        System.out.print("Noss Numero: " + getNosso_numero());
+        System.out.print("Moeda: " + getMoeda());
+        System.out.print("Carteira: " + getCarteira());
+        System.out.print("Numeri documento: " + getNum_documento());
+        System.out.print("Aceite: " + getAceite());
+        System.out.print("Instrucoes basicas: " + getInstrucoes());
+        
+*/
 
 public class Boleto implements InterfaceBoleto{
-    String num_boleto,vencimento,nosso_numero, num_documento,aceite, instrucoes;
+    String num_boleto,nosso_numero, num_documento,aceite, instrucoes;
 //  especie_doc
-    int carteira;
+    int carteira, id;
     float valor_documento, descontos, multa, acrescimos, deducoes, valor_total;
     Cedente cedente;
     Sacado sacado;
     Local_Pagamento local_pagamento;
     Banco banco;
     Moeda moeda;
-    
-    
+    LocalDate vencimento, data_documento;
+
     public Boleto(){
         cedente = new Cedente();
         local_pagamento = new Local_Pagamento();
         sacado = new Sacado();
     }
+    public String getLocal_pagamento() {
+        return local_pagamento.getNome();
+    }
+
+    public void setLocal_pagamento(Local_Pagamento local_pagamento) {
+        this.local_pagamento = local_pagamento;
+    }
+    
+    public LocalDate getData_documento() {
+        return data_documento;
+    }
+
+    public void setData_documento(LocalDate data_documento) {
+        this.data_documento = data_documento;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getSacado() {
         return sacado.getNome();
     }
@@ -31,11 +68,11 @@ public class Boleto implements InterfaceBoleto{
         this.num_boleto = num_boleto;
     }
 
-    public String getVencimento() {
+    public LocalDate getVencimento() {
         return vencimento;
     }
 
-    public void setVencimento(String vencimento) {
+    public void setVencimento(LocalDate vencimento) {
         this.vencimento = vencimento;
     }
 
@@ -63,7 +100,7 @@ public class Boleto implements InterfaceBoleto{
         this.aceite = aceite;
     }
 
-    public String getIntrucoes() {
+    public String getInstrucoes() {
         return instrucoes;
     }
 
@@ -143,30 +180,37 @@ public class Boleto implements InterfaceBoleto{
     public void setMoeda(Moeda moeda) {
         this.moeda = moeda;
     }
+
+    public void setCedente(Cedente cedente) {
+        this.cedente = cedente;
+    }
+
+    public void setSacado(Sacado sacado) {
+        this.sacado = sacado;
+    }
+    
     
 
     @Override
     public void entrada() {
         String saida;
         System.out.print("----INFORMAÇÕES DO BOLETO----\n");
-        System.out.print("Data de vencimento:");
-        setVencimento(leia.next().toUpperCase());
+        System.out.print("Data do documento no padrao dd/MM/aaaa: ");
+        setData_documento(converteData(leia.next()));
+        System.out.print("Data de vencimento no padrao dd/MM/aaaa: ");
+        setVencimento(converteData(leia.next()));
         System.out.print("Número: ");
-        setNum_boleto(leia.next().toUpperCase());
+        setNum_boleto(leia.next());
         System.out.print("Nosso número:");
-        setNosso_numero(leia.next().toUpperCase());
+        setNosso_numero(leia.next());
         System.out.print("Numero do Documento: ");
-        setNum_documento(leia.next().toUpperCase());
+        setNum_documento(leia.next());
         System.out.print("Aceite:");
-        setAceite(leia.next().toUpperCase());
+        setAceite(leia.next());
         System.out.print("Inserir Instruções basicas:");
-        setInstrucoes(leia.next().toUpperCase());
-        
-        //Classes importadas
-        sacado.entrada();
-        cedente.entrada();
-        local_pagamento.entrada();
-        
+        setInstrucoes(leia.next());
+        System.out.print("Carteira:  ");
+        setCarteira(leia.nextInt());
         
         while(true){
         System.out.print("\n----INFORMAÇÕES FINANCEIRAS----\n");
@@ -188,19 +232,44 @@ public class Boleto implements InterfaceBoleto{
             }
         }
     }
-    public void entrada(Banco banco, Moeda moeda){
+    public void entrada(Banco banco, Moeda moeda, Cedente cedente, Sacado sacado, Local_Pagamento local){
         setBanco(banco);
         setMoeda(moeda);
+        setCedente(cedente);
+        setSacado(sacado);
+        setLocal_pagamento(local);
         entrada();
     }
 
     @Override
     public void imprimir() {
+        System.out.println("Banco: " + getBanco());
+        System.out.println("Data: " + getData_documento());
+        System.out.println("Vencimento para: "+ getVencimento());
+        System.out.println("Numero do boleto: " + getNum_boleto());
+        System.out.println("Nosso Numero: " + getNosso_numero());
+        System.out.println("Moeda: " + getMoeda());
+        System.out.println("Carteira: " + getCarteira());
+        System.out.println("Numeri documento: " + getNum_documento());
+        System.out.println("Aceite: " + getAceite());
+        System.out.println("Instrucoes basicas: " + getInstrucoes());
         
+        //Classes importadas
+       System.out.println("Sacado: " + getSacado());
+       System.out.println("Cedente: " + getCedente());
+       System.out.println("Local de pagamento: " + getLocal_pagamento());
+        System.out.println("============TOTAL A PAGAR============");
+        System.out.println("R$: " + getValor_total());
     }
     
-    public float calculaValorTotal(){
+    private float calculaValorTotal(){
         float total = getValor_documento()+(getMulta()+getAcrescimos())-(getDescontos()+getDeducoes());
         return total;
+    }
+
+    private LocalDate converteData(String data) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    LocalDate dataFormatada = LocalDate.parse(data,formatter);
+    return dataFormatada;
     }
 }

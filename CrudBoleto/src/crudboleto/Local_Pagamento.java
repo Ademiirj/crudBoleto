@@ -8,6 +8,10 @@ public class Local_Pagamento implements InterfaceBoleto{
     
     public Local_Pagamento() {
     }
+    public Local_Pagamento(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
 
     public int getId() {
         return id;
